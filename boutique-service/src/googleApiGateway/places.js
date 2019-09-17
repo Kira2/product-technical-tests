@@ -3,12 +3,12 @@
  * @author Emilie Montredon
  *
  * @module GoogleAPIGateway/Places
- * @description Exports some functions used to communicate with the Google API
+ * @description Exports functions to communicate with the Google API
  */
 import https from 'https';
 
-const GOOGLE_MAP_API_URL = 'https://maps.googleapis.com/maps/api';
-const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY || 'YOUR_GOOGLE_API_KEY_HERE';
+const GOOGLE_MAP_API_URL = process.env.GOOGLE_MAP_API_URL;
+const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY;
 
 /**
  * @function getGooglePlacesID
