@@ -7,8 +7,8 @@
  */
 import https from 'https';
 
-const GOOGLE_MAP_API_URL = process.env.GOOGLE_MAP_API_URL;
-const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY;
+const GOOGLE_MAP_API_URL = process.env.GOOGLE_MAP_API_URL || 'https://maps.googleapis.com/maps/api';
+const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY || 'YOUR_GOOGLE_API_KEY';
 
 /**
  * @function getGooglePlacesID
@@ -17,6 +17,8 @@ const GOOGLE_API_KEY =  process.env.GOOGLE_API_KEY;
  * @param {number} lat The latitude of the boutique
  * @param {number} lon The longitude of the boutique
  * @return {Promise} A Promise that is full-filled with the response of the request
+ *
+ * @see {@link https://developers.google.com/places/place-id}
  */
 export const getGooglePlacesID = (name, lat, lon) => {
 
@@ -29,24 +31,42 @@ export const getGooglePlacesID = (name, lat, lon) => {
 
     const GOOGLE_PLACES_ID_URL = `${GOOGLE_MAP_API_URL}/place/nearbysearch/json?${locationParam}&${nameParam}&${radiusParam}&${keyParam}`;
 
+    // get the places that match the query of the URL
     https.get(GOOGLE_PLACES_ID_URL, (response) => {
       response.setEncoding('utf8');
       let data = '';
 
+      // aggregate each chunk of the response
       response.on('data', (chunk) => {
         data += chunk;
       });
 
+      // when the response is complete...
       response.on('end', () => {
         try {
           const jsonData = JSON.parse(data);
 
-          if (jsonData && jsonData.results && (jsonData.results.length === 1)) {
-            resolve(jsonData.results[0].place_id);
+          if (jsonData && jsonData.results) {
 
-          } else {
-            resolve(-1);
+            // if there is only one place, return its place_id
+            if (jsonData.results.length === 1) {
+              resolve(jsonData.results[0].place_id);
+              return;
+            }
+
+            // if there are several places, try to compare the name of each
+            //  of them with the name of the boutique to see if we can found it for sure
+            for (let i = 0; i < jsonData.results.length; i++) {
+              let place = jsonData.results[i];
+
+              if (place.name.toUpperCase() === name.toUpperCase()) {
+                resolve(place.place_id);
+                return;
+              }
+            }
           }
+
+          resolve(-1);
 
         } catch (error) {
           reject(error);

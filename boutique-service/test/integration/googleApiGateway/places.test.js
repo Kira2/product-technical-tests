@@ -14,10 +14,17 @@ describe('Integration tests > googleAPIGateway > getGooglePlacesID', function() 
     const checks = [];
 
     const boutiques = [
-      { lat: 51.7079581, lon: -1.5531104, name: 'homeArama', places_id: 'ChIJDa8hZSQ1cUgR0aHi08Ja4cw' },
-      { lat: 51.2804541, lon: 1.0800823, name: 'The Living Lounge', places_id: 'ChIJF3dgbbXL3kcRSY08H7gtSnU' },
-      { lat: 51.5485892, lon: 0.0251521, name: 'items of note', places_id: -1 },
-      { lat: 51.5350305, lon: -0.1035636, name: 'Victoria Beau', places_id: 'ChIJn8s_bl0bdkgRu8EL_Qb6AQo' },
+      // only one place returned by Google
+      { lat: 52.6259755, lon: 1.2957945, name: 'Design House Norwich', places_id: 'ChIJfzmX1eXj2UcR50jtG-LIurQ' },
+      // no place returned by Google
+      { lat: 51.5612228, lon: -0.0735762, name: 'Rouge', places_id: -1 },
+      // several places returned by Google, with at least one that matches
+      { lat: 51.5825519, lon: -0.0131045, name: 'Debbie Bliss Home', places_id: 'ChIJJcINwu0ddkgRcSfNzYzmxUk' },
+      // several places returned by Google, but no one that seems to match the boutique
+      { lat: 51.5205427, lon: -0.1531023, name: 'Lewis & Co.', places_id: -1 },
+      // not typed as a store
+      { lat: 55.825523, lon: -4.2682883, name: 'Whitespace Kids', places_id: 'ChIJd8b2fvlGiEgRSvyBpP8jXtY' },
+      // unknown
       { lat: 51.5350305, lon: -0.1035636, name: 'Unknown for very sure!', places_id: -1 }
     ];
 
