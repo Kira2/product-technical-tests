@@ -7,5 +7,6 @@ export default {
       lon: Schema.Types.Number,
       lat: Schema.Types.Number
     },
-    description: Schema.Types.String
+    description: Schema.Types.String,
+    google_places_id: Schema.Types.String,
 }
