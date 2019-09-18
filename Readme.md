@@ -12,7 +12,7 @@ I will explain what I did for each of these deliverables. Feel free to contact m
 
 ## Requirements
 
-I created my own Google API Key for this. I imported it as an environement variable via the file ```docker-compose.yml```. It is necessary to run the code and the integration tests ```boutique-service/test/integration/googleApiGateway/places.test.js```.
+I created my own Google API Key for this project. I imported it as an environement variable via the file ```docker-compose.yml```. It is necessary to run the code and the integration tests ```boutique-service/test/integration/googleApiGateway/places.test.js```.
 
 So, you will need to use yours instead.
 
