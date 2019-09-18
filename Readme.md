@@ -46,7 +46,7 @@ You will notice that I did not add the parameter ```type=store```into the reques
 
 In the end, I was able to add a new route to the API ```http://localhost:3050/v1/boutiques/populateGPID``` to be able to populate all the Google Places ID of the existing boutiques. Only 73 boutiques out of 446 have not their Google Places ID.
 
-You'll see into the next part that the new Middleware on Mongoose allowed me to simplify the associated code. See the commit 
+You'll see into the next part that the new Middleware on Mongoose allowed me to simplify the associated code. See this [commit](https://github.com/Kira2/product-technical-tests/commit/4828affd7fe9983b364cf57736a7ef8690580576).
 
 ### Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
