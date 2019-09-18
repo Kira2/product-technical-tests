@@ -40,11 +40,13 @@ But this is not perfect, because the comparison between the two names requires a
 
 #### Case n°3
 
-You will notice that I did not add the parameter ```type=store```into the request sent to Google, as some boutiques referenced by Trouva have not this keywords into their types' list on Google.
+You will notice that I did not add the parameter ```type=store```into the request sent to Google, as some boutiques referenced by Trouva have not this keywords into their types' list on Google. "Posh Totty Designs" and "Whitespace Kids" are some examples of this case.
 
 #### Result
 
-In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID. Example: "ARTHOUSE Meath".
+In the end, I was able to add a new route to the API ```http://localhost:3050/v1/boutiques/populateGPID``` to be able to populate all the Google Places ID of the existing boutiques. Only 73 boutiques out of 446 have not their Google Places ID.
+
+You'll see into the next part that the new Middleware on Mongoose allowed me to simplify the associated code. See the commit 
 
 ### Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
