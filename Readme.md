@@ -24,9 +24,11 @@ From there, as soon as the Google Placed IDs would be populated, this value woul
 
 ### Populate all existing boutiques in the database with their Google Places ID
 
-This part was
+This part was the opportunity to learn more about the Google API, and check all the cases that could be encountered. I noticed several things that push me to improve a little bit the example given by Google at the URL https://developers.google.com/places/place-id. Indeed, they just get the first item of the returned Google Places, but in some cases, this is not the right result.
 
-## Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
+In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID.
+
+### Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
 To do that, I decided to use the Middleware supplied by Mongoose. File : ```boutique-service/src/schemas/boutique.js```.
 
@@ -41,3 +43,5 @@ schema.pre('update', function() {
 You will see that I decided to not update the value if the returned value is -1. It is to avoid to erase an information about the Google Places ID if this is due to another thing than juste an inexistant Google Places ID. This part of code can be improved by detecting all cases to set the value to -1 only if it is really relevant to an inexistant Google Places ID.
 
 I also specified into the comments of the middleware, that in case of failure to get the Google Places ID, the operation to save the boutique can continue. However, there should be a bugreport system to notify the team that something went wrnong, and make the needed actions to correct it.
+
+After writing this Middleware, I could simplified the file ```boutique-service/src/httpApi/v1/handlers/populateGPID.js```to just use this mechanisme to automatially update all the boutiques without any Google Places ID, by visiting the url http://localhost:3050/v1/boutiques/populateGPID.
