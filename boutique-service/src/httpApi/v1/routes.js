@@ -48,4 +48,14 @@ export default function attachRoutes({ models, router, handlers }) {
      *
      */
     router.get('/boutiques/near', handlers.boutiquesNear.bind(undefined, {models}));
+
+    /**
+     * @api {post} /v1/boutiques/populateGPID Populates all existing boutiques with no Google Places ID with one retrieved from the Google API
+     * @apiName BoutiquesPopulateGPID
+     * @apiGroup Boutiques
+     * @apiVersion 1.0.0
+     *
+     * @apiDescription opulates all existing boutiques with no Google Places ID with one retrieved from the Google API
+     */
+    router.get('/boutiques/populateGPID', handlers.populateGPID.bind(undefined, {models}));
 }
