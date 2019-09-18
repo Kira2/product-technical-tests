@@ -9,7 +9,7 @@ import { getGooglePlacesID } from '../../../googleAPIGateway/places';
 
 export default function populateGPID({models}, req, res, next) {
 
-  let updates = []; // to store all the running the update operations
+  let updates = []; // to store all the running update operations
   let hasError = false; // if at least one update fails
 
   // search only for boutiques that has no Google Place ID yet
