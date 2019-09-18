@@ -34,7 +34,9 @@ There is only one result returned by Google, so we keep it as the good result.
 
 #### Case n°2
 
-There are several results returned by Google. In this case, the first one is not necessary the good one. To try to detect the good one, I browse the result and I compare the name stored by Trouva and the name stored by Google. If this is a perfect match, I have my result.
+There are several results returned by Google. In this case, the first one is not necessary the good one. To try to detect the good one, I browse the result and I compare the name stored by Trouva and the name stored by Google. If this is a perfect match, I have my result. "Debbie Bliss Home" and "Hill & Friends" are some examples of this case.
+
+But this is not perfect, because the comparison between the two names requires a perfect match. So, if the name is very slightly different on google because shortened, or with an acronym, the good result is not detected. I guess that this point could be improved. "Wonderound" and "Rachel Usher" are some examples of this case.
 
 #### Case n°3
 
@@ -42,7 +44,7 @@ You will notice that I did not add the parameter ```type=store```into the reques
 
 #### Result
 
-In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID. Example: ARTHOUSE Meath.
+In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID. Example: "ARTHOUSE Meath".
 
 ### Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
