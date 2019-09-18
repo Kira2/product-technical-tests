@@ -2,44 +2,34 @@
 
 ## Challenges
 
-In your briefing you will have been given a link to a specific challenge, though so far there is only one so that keeps it easy.
+Thank you for sending me this technical test. Here's a reminder of what I had to do:
 
-### Product Engineer
+1. Populate all existing boutiques in the database with their Google Places ID
+2. Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
+3. Return the Google Places ID as part of the API response
 
-Backend / Fullstack:
-- [Create a nearby boutiques endpoint](./challenges/Engineer.API_development_test.lvl1.md)
-- [Integrate Google Places ID](./challenges/Engineer.API_development_test.lvl2.md)
+I will explain what I did for each of these deliverables. Feel free to contact me if you need more information.
 
-Frontend:
-- [Create a nearby boutiques web app](./challenges/Engineer.front_end.lvl1.md)
+### Return the Google Places ID as part of the API response
 
-### Data Engineer
-- [Sizes & Variants](./challenges/Data.Size_manipulation.md)
+This is the first thing that I did, simply by adding the field "google_places_id" into the schema defined for Mongoose. File : ```src/schemas/boutique.js```.
 
-## Pre-requisite Setup
+From there, as soon as the Google Placed IDs would be populated, this value would be included into the result returned by the requests made on http://localhost:3050/v1/boutiques.
 
-Within this repo you should have everything you need to complete the challenge. There are some skeleton services setup, with example code to get you started and databases pre-filled with data.
+### Populate all existing boutiques in the database with their Google Places ID
 
-The only assumption is that you have some familiarity with Docker, as the different parts are split into docker containers that work together through Docker Compose.
+This part was
 
-### Installing Docker Compose
+## Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
-The official installation instructions should be all that you need:
+To do that, I decided to use the Middleware supplied by Mongoose. File : ```src/schemas/boutique.js```.
 
-https://docs.docker.com/compose/install/
+It allow to trigger some actions each time that an operation is done on a document. I just wrote a middleware for the 'save' operation as a Proof Of Concept, but, according to the way in which the creation and saving operations of the boutiques are written, it could be necessary to add a specific Middleware for the 'update' operations. Like this:
 
-### Spinning up the project
+```
+schema.pre('update', function() {
+  // populate the Google Places ID here
+});
+```
 
-Once Docker Compose is installed, you can run the project through `docker-compose up` from the root of the repo. This may take some time on first boot as it will be pulling down all the dependencies to run each project, but will then get faster on the second iteration.
-
-Once it is all built you can visit `http://localhost:3050/ping` in your browser to check the server is running. And then visit `http://localhost:3050/v1/boutiques` to ensure that the project is communicating with the database correctly.
-
-### If you get stuck with docker?
-
-We can't answer every problem. If you feel really uncomfortable diving into Docker, then don't worry we can teach you later. It is possible to run all of the parts outside of Docker, have a poke around and if you get stuck just drop us an email.
-
-But if you are just stuck on a small things, we have put together some [Docker Tips](./docker-tips.md).
-
-### Communicate change
-
-If you feel the need to communicate your approach, mindset, changes, additions etc. feel free to spin up a new markdown file and outline your thoughts in there.
+You will see that I decided to not update the value if the returned value is -1. It is to avoid to erase an information about the Google Places ID if this is due to another thing than juste an inexistant Google Places ID. This part of code can be improved by detecting all cases to set the value to -1 only if it is really relevant to an inexistant Google Places ID.
