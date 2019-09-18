@@ -26,7 +26,23 @@ From there, as soon as the Google Placed IDs would be populated, this value woul
 
 This part was the opportunity to learn more about the Google API, and check all the cases that could be encountered. I noticed several things that push me to improve a little bit the example given by Google at the URL https://developers.google.com/places/place-id. Indeed, they just get the first item of the returned Google Places, but in some cases, this is not the right result.
 
-In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID.
+Let see the logic behind the code of the file ```boutique-service/src/googleApiGateway/places.js```.
+
+#### Case n°1
+
+There is only one result returned by Google, so we keep it as the good result.
+
+#### Case n°2
+
+There are several results returned by Google. In this case, the first one is not necessary the good one. To try to detect the good one, I browse the result and I compare the name stored by Trouva and the name stored by Google. If this is a perfect match, I have my result.
+
+#### Case n°3
+
+You will notice that I did not add the parameter ```type=store```into the request sent to Google, as some boutiques referenced by Trouva have not this keywords into their types' list on Google.
+
+#### Result
+
+In the end I could populated all the existing Google Places ID, and there are only 73 boutiques out of 446 that have no Google Places ID. Example: ARTHOUSE Meath.
 
 ### Whenever a new boutique is create or updated, you need to retrieve and store the Google Places ID
 
